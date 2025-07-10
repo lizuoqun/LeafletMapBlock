@@ -48,6 +48,7 @@ export class LeafletMapBlockLayer extends L.GridLayer {
         const size = this.getTileSize();
         tile.width = size.x;
         tile.height = size.y;
+        tile.style.zIndex = '90'; 
 
         const ctx = tile.getContext('2d');
 
