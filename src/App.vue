@@ -1,12 +1,14 @@
 <script setup lang="ts">
-import { onMounted } from 'vue';
+import {onMounted} from 'vue';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
-import { LeafletMapBlockLayer } from './lib/LeafletMapBlock';
-import './lib/leaflet-markers-canvas'
-import { ManyMarkersCanvas, MarkerPointOptions } from './lib/LeafletManyPoint'
+import './lib/leaflet-markers-canvas';
+import {ManyMarkersCanvas, MarkerPointOptions} from './lib/LeafletManyPoint';
 // @ts-ignore
-import archeryImage from './assets/archery.png'
+import archeryImage from './assets/archery.png';
+// @ts-ignore
+import Dog from './assets/dog.svg';
+import Lulu from './assets/lulu.gif';
 
 onMounted(() => {
   initMap();
@@ -15,9 +17,9 @@ const customSvgIcon = `<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http
 
 const initMap = () => {
   const nodeRandom =
-    Math.floor(Math.random() * 5) + 3 === 4
-      ? 6
-      : Math.floor(Math.random() * 5) + 3;
+      Math.floor(Math.random() * 5) + 3 === 4
+          ? 6
+          : Math.floor(Math.random() * 5) + 3;
   const map = L.map('map').setView([23, 113], 5);
   // http://lbs.tianditu.gov.cn/server/MapService.html
   const tdtUrl = `http://t${nodeRandom}.tianditu.gov.cn/DataServer?T=img_w&x={x}&y={y}&l={z}&tk=b11578e50812a12bd62c4dcd3d9dd082`;
@@ -39,23 +41,35 @@ const initMap = () => {
     {
       lat: 25,
       lng: 111,
-      icon: customSvgIcon,
+      icon: Lulu,
       title: 'SVG',
-      iconSize: [24, 24]
+      iconSize: [50, 50]
     }
-  ]
+  ];
+
+  for (let i = 0; i < 10000; i++) {
+    Points.push({
+      lat: Math.random() * 180 - 90,
+      lng: Math.random() * 360 - 180,
+      icon: i % 2 === 0 ? archeryImage : Dog,
+      title: i % 2 === 0 ? `archery${i}` : `Dog${i}`,
+      iconSize: [36, 36],
+      onIconClick: (item) => {
+        alert(item.title);
+      },
+      onIconMouseOver: (item) => {
+      },
+      onIconMouseOut: (item) => {
+      }
+    });
+  }
+  // @ts-ignore
   const manyMark = new ManyMarkersCanvas(Points);
   manyMark.addTo(map);
-
-  manyMark.addLayer()
+  manyMark.addLayer();
 };
 </script>
 
 <template>
   <div id="map" style="width: 100%; height: 100%;"></div>
 </template>
-<style>
-.my-leaflet-custom-tile {
-  pointer-events: auto;
-}
-</style>
