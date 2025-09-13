@@ -150,9 +150,6 @@ _reset()
     - 实现地图缩放动画时 canvas 的平滑变换
     - 利用 Leaflet 提供的缩放动画 API，根据当前缩放级别和地图中心点计算出新的偏移量和缩放比例，对 canvas 元素应用
       CSS变换（`transform`），从而实现视觉上的缩放过渡效果。
-
----
-
 2. 关键逻辑解析
     - `this._map.getZoomScale(event.zoom)`：
         - 获取当前缩放级别与基础缩放级别的比例因子，用于确定缩放程度。
@@ -518,4 +515,7 @@ _initIconClickEvent()
   });
 }
 ```
-> 最后：这个封装的js代码在：[Github]()
+
+> 最后：这个封装的leaflet插件代码在：[Github](https://github.com/lizuoqun/LeafletMapBlock/blob/master/src/lib/LeafletManyPoint.ts)
+> 
+> 如果觉得这个封装的代码不错，请给作者一个star，谢谢！
